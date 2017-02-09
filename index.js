@@ -3,6 +3,7 @@ var beautifyHtml = require('js-beautify').html;
 var nodeCoffeeJsx = require('node-cjsx');
 var nodeJsx = require('node-jsx');
 var _merge = require('lodash.merge');
+var ReactDOMServer = require('react-dom/server');
 
 var DEFAULT_OPTIONS = {
   extension: '.cjsx',
@@ -22,7 +23,7 @@ function createEngine(engineOptions) {
     try {
       var markup = engineOptions.doctype;
       var component = React.createFactory(require(filename));
-      markup += React.renderToStaticMarkup(component(options));
+      markup += ReactDOMServer.renderToStaticMarkup(component(options));
     } catch (e) {
       return cb(e);
     }
